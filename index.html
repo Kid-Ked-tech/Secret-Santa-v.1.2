@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secret Santa Pairings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            margin: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: green;
+        }
+        .error {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Secret Santa Pairings</h1>
+    <form id="santaForm">
+        <label for="username">Enter your username:</label><br>
+        <input type="text" id="username" name="username" required><br>
+        <input type="submit" value="Find Secret Santa">
+    </form>
+    <div class="result" id="result"></div>
+    <div class="error" id="error"></div>
+
+    <script>
+        // Mapping of real usernames to anonymous names (flavors)
+        const anonymousNames = {
+            "Beck": "Vanilla",
+            "Dan": "Chocolate",
+            "Derrick": "Strawberry",
+            "Sylvia": "Mint",
+            "Rita": "Caramel",
+            "Racheal": "Lemon",
+            "Alex": "Coffee",
+            "Vally": "Hazelnut",
+            "Mom": "Blueberry",
+            "Dad": "Peanut Butter",
+            "Diana": "Pistachio"
+        };
+
+        // Mapping of anonymous names to real Secret Santa assignments
+        const pairings = {
+            "Vanilla": "Dianah",
+            "Chocolate": "Derrick",
+            "Strawberry": "Alex",
+            "Mint": "Becky",
+            "Caramel": "Racheal",
+            "Lemon": "Ritah",
+            "Coffee": "Mom",
+            "Hazelnut": "Sylvia",
+            "Blueberry": "Vally",
+            "Peanut Butter": "Dan",
+            "Pistachio": "Dad"
+        };
+
+        document.getElementById('santaForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const resultDiv = document.getElementById('result');
+            const errorDiv = document.getElementById('error');
+            resultDiv.innerHTML = '';
+            errorDiv.innerHTML = '';
+
+            if (anonymousNames[username]) {
+                const anonymousName = anonymousNames[username];
+                const secretSanta = pairings[anonymousName];
+                resultDiv.innerHTML = `Your Secret Santa is: ${secretSanta}`;
+            } else {
+                errorDiv.innerHTML = 'Username not found. Please try again.';
+            }
+        });
+    </script>
+</body>
+</html>
